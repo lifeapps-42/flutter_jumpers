@@ -1,7 +1,7 @@
 name: jumpers
 description: Animate any layout.
 version: 0.0.1
-homepage: https://dart.dev/tools/pub/pubspec
+homepage: https://github.com/lifeapps-42/flutter_jumpers
 
 environment:
   sdk: '>=3.0.3 <4.0.0'
