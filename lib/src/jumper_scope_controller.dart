@@ -21,6 +21,9 @@ class JumperScopeController extends ChangeNotifier {
   final _jumpersShuttles = <JumperData>{};
   var _jumpersShuttlesSnapShots = <JumperSnapshot>[];
 
+  var _stateId = 0;
+  int get stateId => _stateId;
+
   late final AnimationController _animationController;
   late final Animation<double> _animation;
 
@@ -52,6 +55,7 @@ class JumperScopeController extends ChangeNotifier {
   }
 
   Future<void> animate() async {
+    _stateId++;
     await _animationController.forward(from: 0.0);
     if (!_isMiddleAirTransition) {
       _isAnimating = false;

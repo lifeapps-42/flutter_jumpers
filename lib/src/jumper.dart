@@ -8,7 +8,7 @@ class Jumper extends StatefulWidget {
   const Jumper({
     super.key,
     required this.tag,
-    required this.child,
+    required this.builder,
     this.crossFadeEnabled = false,
   })  : controller = null,
         isShuttle = false;
@@ -16,13 +16,13 @@ class Jumper extends StatefulWidget {
   const Jumper.forShuttle({
     super.key,
     required this.tag,
-    required this.child,
+    required this.builder,
     required this.controller,
     required this.crossFadeEnabled,
   }) : isShuttle = true;
 
   final String tag;
-  final Widget child;
+  final Widget Function(BuildContext context) builder;
   final JumperScopeController? controller;
   final bool isShuttle;
   final bool crossFadeEnabled;
@@ -41,7 +41,7 @@ class _JumperState extends State<Jumper> {
     _jumperScope = widget.controller ?? JumperScopeInherited.of(context);
     if (_jumperScope == null) return;
     _jumperData = JumperData(
-      child: widget.child,
+      builder: widget.builder,
       key: _key,
       tag: widget.tag,
       isShuttle: widget.isShuttle,
@@ -90,7 +90,7 @@ class _JumperState extends State<Jumper> {
                   : 1.0,
           child: Container(
             key: _key,
-            child: widget.child,
+            child: widget.builder(context),
           ),
         );
       },

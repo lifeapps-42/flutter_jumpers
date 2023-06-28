@@ -26,12 +26,12 @@ class _AnimatedShuttleState extends State<AnimatedShuttle> {
   late final Rect? _targetRect;
   late final RectTween _tween;
   late final Animation<Rect?> _animation;
-  late Widget _shuttleBody;
+  late Widget Function(BuildContext) _shuttleBodyBuilder;
 
   void _switchBody() {
     if (!widget.pair.crossFadeEnabled) return;
     setState(() {
-      _shuttleBody = widget.pair.target.child;
+      _shuttleBodyBuilder = widget.pair.target.builder;
     });
   }
 
@@ -41,7 +41,7 @@ class _AnimatedShuttleState extends State<AnimatedShuttle> {
         ?.shiftWithOverlayState(widget.controller.overlayKey);
     _targetRect = widget.pair.target.rect
         ?.shiftWithOverlayState(widget.controller.overlayKey);
-    _shuttleBody = widget.pair.origin.child;
+    _shuttleBodyBuilder = widget.pair.origin.builder;
 
     if (_originRect == null || _targetRect == null) {
       return super.initState();
@@ -70,7 +70,7 @@ class _AnimatedShuttleState extends State<AnimatedShuttle> {
               controller: widget.controller,
               tag: widget.pair.origin.tag,
               crossFadeEnabled: widget.pair.crossFadeEnabled,
-              child: widget.pair.crossFadeEnabled
+              builder: (context) => widget.pair.crossFadeEnabled
                   ? AnimatedSwitcher(
                       duration: widget.controller.duration,
                       switchInCurve: Curves.easeOutQuint,
@@ -82,11 +82,12 @@ class _AnimatedShuttleState extends State<AnimatedShuttle> {
                         );
                       },
                       child: Container(
-                        key: Key(_shuttleBody.hashCode.toString()),
-                        child: _shuttleBody,
+                        key: Key(
+                            '${_shuttleBodyBuilder.hashCode}-${widget.controller.stateId}'),
+                        child: _shuttleBodyBuilder(context),
                       ),
                     )
-                  : _shuttleBody,
+                  : _shuttleBodyBuilder(context),
             ),
           ),
         );

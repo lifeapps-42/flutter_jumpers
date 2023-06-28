@@ -22,7 +22,7 @@ class StaticShuttle extends StatelessWidget {
       rect: snapshot.rect!.shiftWithOverlayState(controller.overlayKey),
       child: Material(
         type: MaterialType.canvas,
-        child: snapshot.child,
+        child: snapshot.builder(context),
       ),
     );
   }

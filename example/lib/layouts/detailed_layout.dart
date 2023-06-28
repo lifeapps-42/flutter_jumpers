@@ -39,7 +39,8 @@ class DetailedLayout extends StatelessWidget {
                   key: Key(pickedItem.number.toString()),
                   tag: pickedItem.number.toString(),
                   crossFadeEnabled: true,
-                  child: Tile(
+                  builder: (context) => Tile(
+                    key: Key('detailed_${pickedItem.number}'),
                     item: pickedItem,
                     pickCallback: null,
                     color: Colors.blueGrey,
@@ -60,7 +61,8 @@ class DetailedLayout extends StatelessWidget {
               child: Jumper(
                 key: Key(pickList[i].number.toString()),
                 tag: pickList[i].number.toString(),
-                child: Tile(
+                builder: (context) => Tile(
+                  key: Key('detailed_${pickList[i].number}'),
                   item: pickList[i],
                   pickCallback: pickCallback,
                 ),

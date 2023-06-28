@@ -32,8 +32,9 @@ class MainLayout extends StatelessWidget {
       itemBuilder: (context, i) => Jumper(
         key: Key(items[i].number.toString()),
         tag: items[i].number.toString(),
-        child: Tile(
-          key: Key(items[i].number.toString()),
+        crossFadeEnabled: true,
+        builder: (context) => Tile(
+          key: Key('main_${items[i].number}'),
           item: items[i],
           pickCallback: pickCallback,
           deleteCallback: deleteCallback,

@@ -48,7 +48,7 @@ class _UnpairedShuttleState extends State<UnpairedShuttle> {
           scale: _scaleTween.animate(widget.controller.animation),
           child: Material(
             type: MaterialType.transparency,
-            child: widget.jumper.child,
+            child: widget.jumper.builder(context),
           ),
         ),
       ),

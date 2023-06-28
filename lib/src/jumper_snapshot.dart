@@ -5,7 +5,7 @@ import 'jumper_data.dart';
 
 class JumperSnapshot {
   const JumperSnapshot._({
-    required this.child,
+    required this.builder,
     required this.tag,
     required this.rect,
     required this.crossFadeEnabled,
@@ -13,14 +13,14 @@ class JumperSnapshot {
 
   factory JumperSnapshot.fromData(JumperData data) {
     return JumperSnapshot._(
-      child: data.child,
+      builder: data.builder,
       tag: data.tag,
       rect: rectFromKey(data.key),
       crossFadeEnabled: data.crossFadeEnabled,
     );
   }
 
-  final Widget child;
+  final Widget Function(BuildContext) builder;
   final String tag;
   final Rect? rect;
   final bool crossFadeEnabled;
